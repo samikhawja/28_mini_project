@@ -7,29 +7,42 @@ function BucketList() {
 
   // Function to add a bucket list item
   const addBucketItem = (item) => {
+    console.log(
+      '🚀 ~ file: BucketList.js ~ line 10 ~ addBucketItem ~ item',
+      item
+    );
+    // Check to see if the item text is empty
+    if (!item.text) {
+      return;
+    }
 
-    // TODO: Write logic to add the new bucket item to the bucket state variable
-    
+    // Add the new bucket list item to the existing array of objects
+    const newBucket = [item, ...bucket];
+    console.log(newBucket);
+
+    // Call setBucket to update state with our new set of bucket list items
+    setBucket(newBucket);
   };
 
   // Function to mark bucket list item as complete
   const completeBucketItem = (id) => {
     // If the ID passed to this function matches the ID of the item that was clicked, mark it as complete
     let updatedBucket = bucket.map((item) => {
-      
-      // TODO: Write logic that marks an item as complete or incomplete when invoked
-
+      if (item.id === id) {
+        item.isComplete = !item.isComplete;
+      }
+      return item;
     });
 
+    console.log(updatedBucket);
     setBucket(updatedBucket);
   };
 
   // Function to remove bucket list item and update state
   const removeBucketItem = (id) => {
-    // TODO: Write logic that will return an array of items that don't contain the ID passed to this function
+    const updatedBucket = [...bucket].filter((item) => item.id !== id);
 
-
-    // TODO: Update the bucket state variable
+    setBucket(updatedBucket);
   };
 
   // Function to edit the bucket list item
@@ -40,7 +53,7 @@ function BucketList() {
     }
 
     // We use the "prev" argument provided with the useState hook to map through our list of items
-    // We then check to see if the item ID matches the id of the item that was clicked and if so, we set it to a new value
+    // We then check to see if the item ID matches the if of the item that was clicked and if so we set it to a new value
     setBucket((prev) =>
       prev.map((item) => (item.id === itemId ? newValue : item))
     );
